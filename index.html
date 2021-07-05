@@ -15,39 +15,29 @@
 
 <script>
         let pos=0
-        let student1 = [
+        let product1 = [
             1,
             `First`,
-            `ttt@gmail.com`,
-            972524444444
+            10,
         ]
- 
-        let student2 = [
+        let product2 = [
             2,
             `Second`,
-            `ttt@gmail.com`,
-            972524444444
+            15,
         ]
-        let student3 = [
-            3,
-            `Third`,
-            `ttt@gmail.com`,
-            972524444444
-        ]
-        let students = [student1,student2,student3]
-    drawCard(student1)
+        let products = [product1,product2]
+    drawCard(products)
     function drawCard(arr){
         let card ={
-            img: arr[0],
+            ID: arr[0],
             Name: arr[1],
-            email:arr[2],
-            tel: arr[3]
+            price:arr[2]
         }
       myDiv.innerHTML=`  <div class="card" style="width: 18rem;">
-        <img src="Images/${card.img}.jpg" class="card-img-top" alt="..." style="width:200px;height:200px; border-radius: 50%;">
+        <img src="Images/1.jpg" class="card-img-top" alt="..." style="width:200px;height:200px; border-radius: 50%;">
         <div class="card-body">
           <h5 class="card-title">${card.Name}</h5>
-          <p class="card-text"> eMail:${card.email} <br> Tel ${card.tel}</p>
+          <p class="card-text"> eMail:${card.price} <br></p>
         </div>
       </div>`
       positionFunc()
@@ -68,7 +58,7 @@
           drawCard(students[++pos])
     }
     function positionFunc(){
-        posit.innerText= `${pos+1} of ${students.length}`
+        posit.innerText= `${pos+1} of ${products.length}`
     }
     function backFunc(){
         if (pos == 0)
