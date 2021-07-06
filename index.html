@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+        </style>
+    </head>
 <body>
-<div id="myDiv"></div>
+<div id="oneProductView"></div>
 <div>
     <button id ="Top" onclick=topFunc()><<</button>
     <button id ="Back" onclick=backFunc()><</button>
-    <button id ="posit">1 of 20</button>
+    <button id ="posit"></button>
     <button id ="Forward" onclick=forwardFunc()>></button>
     <button id ="Bottm" onclick=bottomFunc()>>></button>
     <button id ="Add" onclick=addFunc()>+</button>
     <button id ="Remove" onclick=removeFunc()>-</button>
     <button id ="Search" onclick=searchFunc()>Search</button>
+    <button id ="View List" onclick=viewAllProducts()>View all</button>
 </div>
+
+<div id="listView"></div>    
 
 <script>
         let pos=0
@@ -26,110 +33,130 @@
             15,
         ]
         let products = [product1,product2]
-    drawCard(products)
-    function drawCard(arr){
-        let card ={
-            ID: arr[0],
-            Name: arr[1],
-            price:arr[2]
-        }
-      myDiv.innerHTML=`  <div class="card" style="width: 18rem;">
-        <img src="Images/1.jpg" class="card-img-top" alt="..." style="width:200px;height:200px; border-radius: 50%;">
-        <div class="card-body">
-          <h5 class="card-title">${card.Name}</h5>
-          <p class="card-text"> eMail:${card.price} <br></p>
-        </div>
-      </div>`
-      positionFunc()
-    }
-    function topFunc(){
-        pos=0
-        drawCard(students[pos])
-        positionFunc()
-    }
-    function bottomFunc(){
-        pos =students.length
-        drawCard(students[--pos])
-    }
-    function forwardFunc(){
-        if (pos == students.length)
-            return
-        else
-          drawCard(students[++pos])
-    }
-    function positionFunc(){
-        posit.innerText= `${pos+1} of ${products.length}`
-    }
-    function backFunc(){
-        if (pos == 0)
-            return
-        else
-          drawCard(students[--pos])
-    }
-    function addFunc(){
-        // <label for="fimage">Upload image:</label><br>
-        // <input type="file" id="myImage" name="filename"><br><br>
-        myDiv.innerHTML=`<form id="my-form">
-        <!-- form fields etc here -->
-        <label for="myname">Your name:</label><br>
-        <input type="text" id="myname" value="John"><br><br>
-        <label for="myemail">eMail address</label><br>
-        <input type="text" id="myemail" value="address@mail.com"><br><br>
-        <label for="mytel">Telephone number</label><br>
-        <input type="text" id="mytel" value="050-1234567"><br><br>
-        <button onclick=processForm()>Done</button>
-        </form>`
-    }
-    function processForm() {
-            
-            /* collect form data into array */
-            var student=[
-            4,
-            myname.value,
-            myemail.value,
-            Number(mytel.value)
-            ]
-        students.push(student)
-        drawCard(student) 
-        return    
-        }
-    function removeFunc()
-    {
-        students.splice(pos,1)
-        if (pos==0)
-        drawCard (students[pos])
-        else
-        drawCard (students[--pos])
-    }
-    function searchFunc()
-    {
-        myDiv.innerHTML=
-        `<form id="my-form">
-        <!-- form fields etc here -->
-        <label for="text">Type text to search:</label><br>
-        <input id="text" value"write what to search"></input>
-        <button onclick=searchArray()>Search now</button>
-        </form>`
-    }
-    function searchArray()
-    {
-       for (i=0 ; i<students.length; i++)
-        {        
-            let temp =students[i]
-            for (j=0; j<temp.length;j++)
-            {
-                let str = String (temp[j])
-            if (str.search(text.value)!=-1)
-                {
-                    pos=i
-                    drawCard(students[i])
-                    return
+        function viewAllProducts(){
+            for(i=0 ;i<products.length;i++)
+             {
+                let product=products[i]
+                let prod ={
+                    ID: product[0],
+                    Name: product[1],
+                    price: product[2]
                 }
-             }
-         }
-        myDiv.innerHTML+= `<h1>Didn't find</h1>`
-        return
-    }
+                listView.innerHTML+=`
+                                    <div class="card" style="width: 18rem; display:inline-block">
+                                    <img src="Images/${prod.ID}.jpg" class="card-img-top" alt="No Image" style="width:200px;height:200px; border-radius: 50%;">
+                                        <div class="card-body">
+                                        <h5 class="card-title">${prod.Name}</h5>
+                                        <p class="card-text"> Price:${prod.price} <br></p>
+                                        </div>
+                                    </div>`
+            }
+            
+         console.log(str)
+        }
+        function OneProductGUI(arr){
+                let prod ={
+                    ID: arr[0],
+                    Name: arr[1],
+                    price: arr[2]
+                }
+                oneProductView.innerHTML=`<div class="card" style="width: 18rem;">
+                                    <img src="Images/${prod.ID}.jpg" class="card-img-top" alt="..." style="width:200px;height:200px; border-radius: 50%;">
+                                        <div class="card-body">
+                                        <h5 class="card-title">${prod.Name}</h5>
+                                        <p class="card-text"> Price:${prod.price} <br></p>
+                                        </div>
+                                    </div>`
+            positionFunc()
+            }
+            OneProductGUI(product1)
+           
+            function topFunc(){
+                pos=0
+                OneProductGUI(products[pos])
+                positionFunc()
+            }
+            function  bottomFunc(){
+                pos =products.length
+                OneProductGUI(products[--pos])
+            }
+            function forwardFunc(){
+                if (pos == products.length)
+                    return
+                else
+                OneProductGUI(products[++pos])
+            }
+            function  positionFunc(){
+                posit.innerText= `${pos+1} of ${products.length}`
+            }
+            function  backFunc(){
+                if (pos == 0)
+                    return
+                else
+                OneProductGUI(products[--pos])
+            }
+            function  addFunc(){
+                oneProductView.innerHTML=`<form id="my-form">
+                <!-- form fields etc here -->
+                <label for="productname">Product name:</label><br>
+                <input type="text" id="productname" value="John"><br><br>
+                <label for="pid">Product ID:</label><br>
+                <input type="number" id="pid" value="1"><br><br>
+                <label for="myprice">Product's price</label><br>
+                <input type="number" id="myprice" value="55"><br><br>
+                <button onclick=processForm()>Done</button>
+                </form>`
+            }
+            function  processForm() {
+                    
+                    /* collect form data into array */
+                    var product=[
+                    pid.value,
+                    productname.value,
+                    myprice.value,
+                    ]
+                products.push(product)
+                OneProductGUI(product) 
+                return    
+                }
+                function  removeFunc()
+            {
+                products.splice(pos,1)
+                if (pos==0)
+                OneProductGUI (products[pos])
+                else
+                OneProductGUI (products[--pos])
+            }
+            function searchFunc()
+            {
+                oneProductView.innerHTML=
+                `<form id="my-form">
+                <!-- form fields etc here -->
+                <label for="text">Type text to search:</label><br>
+               <input id="text" value"write what to search"></input>
+                <button onclick=searchArray()>Search now</button>
+                    </form>`
+            }
+            function searchArray()
+            {
+                for (i=0 ; i<products.length; i++)
+                {        
+                   let temp =products[i]
+                    for (j=0; j<temp.length;j++)
+                        {
+                        let str = String (temp[j])
+                    if (str.search(text.value)!=-1)
+                        {
+                            pos=i
+                            OneProductGUI(products[i])
+                            return
+                        }
+                    }
+                }
+                oneProductView.innerHTML+= `<h1>Didn't find</h1>`
+                return
+            }
+      
 </script>
 </body>
 </html>
